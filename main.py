@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from models import Receipt
 from uuid import uuid4
 import storage_db
+from logic import calculate_points
 
 app = FastAPI()
 
@@ -14,7 +15,8 @@ def ping():
 @app.post("/receipts/process")
 def process_receipt(receipt: Receipt):
     receipt_id = str(uuid4())
-    storage_db.db[receipt_id] = {"points": 1111}  # Test Value
+    points = calculate_points(receipt)
+    storage_db.db[receipt_id] = {"points": points}
     return {"id": receipt_id}
 
 
