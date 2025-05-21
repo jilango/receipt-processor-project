@@ -1,5 +1,6 @@
 from models import Receipt
 import math
+from datetime import datetime
 
 
 def calculate_points(receipt: Receipt) -> int:
@@ -36,5 +37,21 @@ def calculate_points(receipt: Receipt) -> int:
                 continue
 
     # Rule 6: Honestly did not see that one coming. Appreciate the sneakiness Devs! Don't worry I'm not implementing it. *chuckles as he types*
+
+    # Rule 7 : 6 points if the day in the purchase date is odd.
+    try:
+        date_obj = datetime.strptime(receipt.purchaseDate, "%Y-%m-%d")
+        if date_obj.day % 2 == 1:
+            points += 6
+    except ValueError:
+        pass
+
+    # Rule 8 : 10 points if the time of purchase is after 2:00pm and before 4:00pm.
+    try:
+        time_obj = datetime.strptime(receipt.purchaseTime, "%H:%M")
+        if 14 <= time_obj.hour < 16:
+            points += 10
+    except ValueError:
+        pass
 
     return points
