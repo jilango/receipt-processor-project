@@ -13,10 +13,11 @@ def calculate_points(receipt: Receipt) -> int:
     # Rule 2: 50 points if the total is a round dollar amount with no cents.
     try:
         total = float(receipt.total)
-        if total.is_integer():
-            points += 50
     except ValueError:
-        pass
+        total = 0.0
+
+    if total.is_integer():
+        points += 50
 
     # Rule 3: 25 points if the total is a multiple of 0.25.
     if (total * 100) % 25 == 0:
