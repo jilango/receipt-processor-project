@@ -35,4 +35,6 @@ def calculate_points(receipt: Receipt) -> int:
             except ValueError:
                 continue
 
+    # Rule 6: Honestly did not see that one coming. Appreciate the sneakiness Devs! Don't worry I'm not implementing it. *chuckles as he types*
+
     return points
